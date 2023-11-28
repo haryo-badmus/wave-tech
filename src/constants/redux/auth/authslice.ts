@@ -17,7 +17,7 @@ const initialState: TAuthState = {
   userDetails: null,
   token: "",
   loading: false,
-  isLoggedIn: true,
+  isLoggedIn: false,
   error: "",
   successMsg: "",
   resetRequestSuccess: false,
