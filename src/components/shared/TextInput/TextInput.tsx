@@ -1,10 +1,10 @@
-import { Box, TextField, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { ChangeEvent } from "react";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { onNumberValidator } from "../../../constants/utils/utils";
 
 export type ITextInputProps = {
-  placeholder?: string | React.ReactNode;
+  placeholder?: string;
   label?: string;
   type?: string;
   required?: boolean;
@@ -34,7 +34,6 @@ const TextInput = ({
   type,
   placeholder,
   onChange,
-  extenstion,
   isNumber,
   inputRef,
 }: ITextInputProps) => {
@@ -42,83 +41,47 @@ const TextInput = ({
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   return (
-    <Box className="w-full">
-      <Typography
-        variant="h1"
-        className={`font-SF text-[1rem] font-[600] mb-5 text-[#483D3D] ${labelStyle}`}
+    <div className={` ${customStyles} mb-7`}>
+      <label
+        htmlFor={name}
+        className={`block text-sm  text-black font-medium mb-2 ${labelStyle} `}
       >
-        {label} {required && <span className="text-[red]">*</span>}
-      </Typography>
-
-      <Box className="mb-7">
-        <Box
-          component="div"
-          className={` relative py-1   bg-black/0 w-full  ${
-            error ? "border-red-500" : " border-tableHeader "
-          } border border-solid   rounded-[0.75rem] flex items-center  h-[3.5rem] mb-2 ${customStyles} ${
-            disabled && "text-black"
-          }`}
-        >
-          {icon && (
-            <Box className="absolute top-[36%] left-4 cursor-pointer">
-              {icon}
-            </Box>
-          )}
-          <TextField
-            placeholder={placeholder as string}
-            type={showPassword && type === "password" ? "text" : type}
-            className="bg-black/0   rounded-md  MuiOutlinedInput-notchedOutline"
-            name={name}
-            value={
-              type === "date" && value
-                ? new Date(value)?.toISOString().split("T")[0]
-                : value
-            }
-            disabled={disabled}
-            onChange={
-              isNumber
-                ? (e: ChangeEvent<HTMLInputElement>) => {
-                    onNumberValidator(e, onChange);
-                  }
-                : onChange
-            }
-            error={!!error && error.length > 0}
-            inputProps={{
-              min: new Date()?.toISOString().split("T")[0],
-            }}
-            inputRef={inputRef}
-            //onKeyDown={onKeyDown}
-          />
-          {type === "password" && (
-            <Box
-              onClick={handleClickShowPassword}
-              className="absolute top-[36%] right-4 cursor-pointer"
-            >
-              {showPassword ? (
-                <BsEyeSlash />
-              ) : (
-                <BsEye className="text-[20px]" />
-              )}
-            </Box>
-          )}
-
-          {extenstion && (
-            <Box className="w-[30%] h-[54px]    cursor-pointer">
-              {extenstion}
-            </Box>
-          )}
-        </Box>
-
-        {error && (
-          <Typography
-            variant="body1"
-            className=" text-primaryRed font-SF font-[400] text-[14px] leading-[20px] capitalize"
-          >
-            {error}
-          </Typography>
+        {label} {required && <span className="bg-red-600">*</span>}
+      </label>
+      <div className="relative">
+        <input
+          type={showPassword && type === "password" ? "text" : type}
+          id={name}
+          name={name}
+          className="py-3 px-4 pe-11 block w-full outline-primaryGray bg-transparent  focus:outline-primary  border-primaryGray rounded-lg text-sm focus:z-10 focus:border-primary focus:ring-primary disabled:opacity-50 disabled:pointer-events-none"
+          placeholder={placeholder ?? ""}
+          disabled={disabled}
+          ref={inputRef}
+          value={value}
+          onChange={
+            isNumber
+              ? (e: ChangeEvent<HTMLInputElement>) => {
+                  onNumberValidator(e, onChange);
+                }
+              : onChange
+          }
+        />
+        {icon && (
+          <div className="absolute inset-y-0 end-0 flex items-center pointer-events-none z-20 pe-4">
+            {icon}
+          </div>
         )}
-      </Box>
-    </Box>
+        {type === "password" && (
+          <Box
+            onClick={handleClickShowPassword}
+            className="absolute inset-y-0 end-0 flex items-center  z-20 pe-4 cursor-pointer"
+          >
+            {showPassword ? <BsEyeSlash /> : <BsEye className="text-[20px]" />}
+          </Box>
+        )}
+      </div>
+      {error && <span>{error}</span>}
+    </div>
   );
 };
 

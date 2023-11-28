@@ -6,8 +6,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SuspensedWithFallback from "./components/shared/SplashScreen/SuspensedWithFallback.tsx";
-import { store } from "./constants/redux/store.ts";
 import { StyledEngineProvider } from "@mui/material";
+import { store } from "./constants/redux/store.ts";
 
 const persistor = persistStore(store);
 

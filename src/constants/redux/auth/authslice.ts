@@ -9,12 +9,14 @@ type TAuthState = {
   successMsg?: string;
   resetRequestSuccess?: boolean;
   passwordResetSuccess?: boolean;
+  isLoggedIn: boolean;
 };
 
 const initialState: TAuthState = {
   userDetails: null,
   token: "",
   loading: false,
+  isLoggedIn: false,
   error: "",
   successMsg: "",
   resetRequestSuccess: false,

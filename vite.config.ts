@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
 import tsConfigPaths from "vite-tsconfig-paths";
 import svgrPlugin from "vite-plugin-svgr";
 // import svgr from "vite-plugin-svgr";
@@ -14,4 +14,4 @@ export default defineConfig({
   server: {
     port: 8000,
   },
-})
+});

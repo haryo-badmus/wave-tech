@@ -18,3 +18,33 @@
     font-family: "Nunito", sans-serif;
   }
 }
+
+@layer components {
+  .MuiTabs-indicatorSpan {
+    @apply text-black font-[500];
+    /* border-bottom: 2px solid gray */
+  }
+  .MuiOutlinedInput-notchedOutline {
+    border: none;
+    outline: none;
+    width: 100%;
+    outline: none;
+    background-color: transparent;
+  }
+  .MuiOutlinedInput-notchedOutline:focus {
+    border: none;
+    outline: none;
+    background-color: transparent;
+  }
+  .MuiDrawer-paper {
+    background-color: #ffffff;
+  }
+}
+
+* {
+  font-family: "Nunito", sans-serif !important;
+}
+
+.MuiAutocomplete-root {
+  z-index: 999;
+}
