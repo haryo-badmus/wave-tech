@@ -7,19 +7,20 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import SuspensedWithFallback from "../SplashScreen/SuspensedWithFallback";
+import { useAppSelector } from "../../../constants/redux/hooks";
 
 const Login = lazy(() => import("../../../page/Auth/Login"));
 const ForgotPassword = lazy(() => import("../../../page/Auth/ForgotPassword"));
 const ResetPassword = lazy(() => import("../../../page/Auth/ResetPassword"));
 
 const Auth = () => {
+  const { isLoggedIn } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
-  // const isAuth = useIsAuth();
-  const isAuth = false;
+
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    if (isAuth) {
+    if (isLoggedIn) {
       const redirectTo = searchParams.get("redirectTo");
       if (redirectTo) {
         navigate(redirectTo, { replace: true });
@@ -27,7 +28,7 @@ const Auth = () => {
         navigate("/app", { replace: true });
       }
     }
-  }, [isAuth, navigate, searchParams]);
+  }, [isLoggedIn, navigate, searchParams]);
   return (
     <Routes>
       <Route

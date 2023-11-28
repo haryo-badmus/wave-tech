@@ -21,3 +21,9 @@ export type TUser = {
   updatedAt: string | null;
   token: string;
 };
+
+
+export type LoginDto = {
+  email: string;
+  password: string;
+};

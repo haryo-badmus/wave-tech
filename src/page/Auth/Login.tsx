@@ -1,10 +1,39 @@
 import { Checkbox } from "@mui/material";
-import TextInput from "../../components/shared/TextInput/TextInput";
 import AppLogo from "../../components/shared/custom-icons/AppLogo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CustomButton from "../../components/shared/Button/Button";
+import { useForm } from "react-hook-form";
+import ControllTextInput from "../../components/shared/TextInput/ControlledTextInput";
+import { LoginDto } from "../../constants/redux/auth/authTypes";
+import { useAppDispatch, useAppSelector } from "../../constants/redux/hooks";
+import { login } from "../../constants/redux/auth/authApi";
+
+const loginDefaultvalue: LoginDto = {
+  email: "",
+  password: "",
+};
 
 const Login = () => {
+  const { loading } = useAppSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { handleSubmit, control } = useForm<LoginDto>({
+    defaultValues: loginDefaultvalue,
+  });
+
+  const onSubmit = async (value: LoginDto) => {
+    console.log(value);
+    navigate("/app/dashboard");
+
+    dispatch(login(value))
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className=" bg-primaryLight  h-screen w-screen flex items-center justify-center flex-col gap-8">
       <AppLogo />
@@ -14,8 +43,18 @@ const Login = () => {
           Enter your credentials to access your account
         </p>
 
-        <TextInput label="EMAIL ADDRESS" />
-        <TextInput label="PASSWORD" type="password" />
+        <ControllTextInput
+          label="EMAIL ADDRESS"
+          name="email"
+          control={control}
+        />
+
+        <ControllTextInput
+          control={control}
+          label="PASSWORD"
+          type="password"
+          name="password"
+        />
         <div className="flex items-center text-xs text-black justify-between mb-5">
           <div>
             <Checkbox />
@@ -29,6 +68,8 @@ const Login = () => {
         <CustomButton
           label="Log into Account "
           bg="bg-primary hover:bg-primary/90"
+          loading={loading}
+          onClick={handleSubmit(onSubmit)}
         />
 
         <p className="text-center mt-10 text-darkGray text-xs">

@@ -1,4 +1,4 @@
-const AppLogo = () => {
+const AppLogo = ({ color }: { color?: string }) => {
   return (
     <svg
       width="188"
@@ -13,7 +13,7 @@ const AppLogo = () => {
           width="1440"
           height="1024"
           transform="translate(-626 -164)"
-          fill="#FFECE5"
+          fill={color ?? "#FFECE5"}
         />
         <g id="Group 1629" opacity="0.05">
           <g id="Group 1617">
